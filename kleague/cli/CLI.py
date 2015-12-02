@@ -11,6 +11,6 @@ class CLI:
 
 	def run(self):
 		print('cli run')
-		command = input('Command? ')
-		self.model.insert(command)
+		inputString = input('Command? ')
+		self.model.insert(inputString)
 		self.model.update()
