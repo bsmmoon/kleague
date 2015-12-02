@@ -1,10 +1,9 @@
 import sys
-sys.path.insert(0, '.kleague')
-from storage import Storage
-from data import Data
-from parser import Parser
-from command import Client
-from crawler import Crawler
+from kleague.parser import Parser
+from kleague.storage import Storage
+from kleague.data import Data
+from kleague.command import Client
+from kleague.crawler import Crawler
 
 class Model:
 
@@ -20,8 +19,8 @@ class Model:
         self.storage.load(self.data)
 
     def insert(self, inputString):
-        print('model insert ({})'.format(command))
-        command = self.parser.pasre(inputString)
+        print('model insert ({})'.format(inputString))
+        command = self.parser.parse(inputString)
         self.client.insert(command)
 
     def update(self):
