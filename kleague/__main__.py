@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(0, 'kleague')
-from cli.CLI import CLI
+from cli import CLI
 
 def main(args=None):
     if args is None:

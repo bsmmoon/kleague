@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(0, '.kleague')
-from model.Model import Model
+from model import Model
 
 class CLI:
 

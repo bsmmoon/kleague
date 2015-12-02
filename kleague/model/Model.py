@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(0, '.kleague')
-from logic.Logic import Logic
+from logic import Logic
 
 class Model:
 
