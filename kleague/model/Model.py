@@ -24,4 +24,18 @@ class Model:
         self.storage.save()
 
     def pull(self):
-        return self.data.getContracts()
+        output = []
+
+        contracts = self.data.getContracts()
+        entry = ''
+        for contract in contracts:
+            entry += '{' + str(contract) + '}'
+        output.append(entry)
+
+        people = self.data.getPeople()
+        entry = ''
+        for person in people:
+            entry += '{' + str(person) + '}'
+        output.append(entry)
+
+        return output
