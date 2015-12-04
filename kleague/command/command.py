@@ -33,16 +33,17 @@ class AddTransferWindow(Command):
 		print('AddTransferWindow undo')
 
 
-class AddPendingContract(Command):
+class AddContract(Command):
 
 
 	def __init__(self, tokens):
-		print('AddPendingContract init')
+		print('AddContract init')
 		self.contract = Contract()
 
 	def execute(self):
-		print('AddPendingContract execute')
-		self.data.addPendingContract(self.contract)
+		print('AddContract execute')
+		self.data.addContract(self.contract)
 
 	def undo(self):
-		print('AddPendingContract undo')
+		print('AddContract undo')
+		

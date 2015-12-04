@@ -4,22 +4,32 @@ class Contract():
 
 
 	def __init__(self):
-		print('Contract init')
-		self.person = None
-		self.team = None
+		self._contractType = None
+		self._person = None
+		self._team = None
 
-	def getPerson(self):
-		return self.person
+	@property
+	def contractType(self):
+		return self._contractType
 
-	def getTeam(self):
-		return self.team
+	@contractType.setter
+	def contractType(self, contractType):
+		self._contractType = contractType
 
-	def setPerson(self, person):
-		print('Contract setPerson')
-		self.person = person
+	@property
+	def person(self):
+		return self._person
 
-	def setTeam(self, team):
-		print('Contract setTeam')
-		self.team = team
+	@person.setter
+	def person(self, person):
+		self._person = person
+
+	@property
+	def team(self):
+		return self._team
+
+	@team.setter
+	def team(self, team):
+		self._team = team
 
 

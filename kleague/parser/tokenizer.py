@@ -7,7 +7,7 @@ class Tokenizer():
 		print('Tokenizer init')
 
 	def tokenize(self, inputString):
-		stringlist = inputString.split(' ')
+		stringlist = inputString.split(';')
 
 		tokenlist = []
 		for string in stringlist:
