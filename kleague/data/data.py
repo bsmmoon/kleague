@@ -21,4 +21,7 @@ class Data():
 		print('data getTransferWindow')
 		self.transferCentre.getTransferWindow()
 
+	def addPendingContract(self, contract):
+		print('data addPendingContract')
+		
 

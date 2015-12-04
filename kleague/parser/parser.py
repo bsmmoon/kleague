@@ -1,11 +1,13 @@
 from kleague.command.command import Command
 from kleague.command.command import AddTransferWindow
+from kleague.command.command import AddPendingContract
 from kleague.data.transferwindow import TransferWindow
 from kleague.parser.tokenizer import Tokenizer
 from kleague.parser.token import Token
 
 EXIT = '0'
 ADD_TRANSFER_WINDOW_COMMAND = '1'
+ADD_PENDING_CONTRACT = '2'
 
 class Parser():
 
@@ -24,6 +26,8 @@ class Parser():
 			exit()
 		elif tokens[0].getValue() == ADD_TRANSFER_WINDOW_COMMAND:
 			command = AddTransferWindow(TransferWindow())
+		elif tokens[0].getValue() == ADD_PENDING_CONTRACT:
+			command = AddPendingContract(tokens)
 		else:
 			raise KeyError('unknown command')
 		

@@ -1,3 +1,4 @@
+from kleague.data import Contract
 
 
 class Command():
@@ -30,3 +31,18 @@ class AddTransferWindow(Command):
 
 	def undo(self):
 		print('AddTransferWindow undo')
+
+
+class AddPendingContract(Command):
+
+
+	def __init__(self, tokens):
+		print('AddPendingContract init')
+		self.contract = Contract()
+
+	def execute(self):
+		print('AddPendingContract execute')
+		self.data.addPendingContract(self.contract)
+
+	def undo(self):
+		print('AddPendingContract undo')
