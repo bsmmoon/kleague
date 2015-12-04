@@ -25,5 +25,7 @@ class Model:
         self.client.insert(command)
         self.storage.save()
 
+        self.data.getTransferWindow()
+
     def update(self):
         print('model update')

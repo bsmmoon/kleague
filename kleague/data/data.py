@@ -13,9 +13,12 @@ class Data():
 	def setData(self):
 		print('data setData')
 
-	def addTransferCentre(self, transferCentre):
-		print('data add transfer market')
-
 	def addTransferWindow(self, transferWindow):
-		print('data add transfer window')
+		print('data addTransferWindow')
+		self.transferCentre.addTransferWindow(transferWindow)
+
+	def getTransferWindow(self):
+		print('data getTransferWindow')
+		self.transferCentre.getTransferWindow()
+
 

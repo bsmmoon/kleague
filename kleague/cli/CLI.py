@@ -10,6 +10,7 @@ class CLI:
 
 	def run(self):
 		print('cli run')
-		inputString = input('Command? ')
-		self.model.insert(inputString)
-		self.model.update()
+		while True:
+			inputString = input('Command? ')
+			self.model.insert(inputString)
+			self.model.update()

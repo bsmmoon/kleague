@@ -18,16 +18,16 @@ class Command():
 		print('command undo')
 
 
-class AddTransferCentre(Command):
+class AddTransferWindow(Command):
 
 
-	def __init__(self, transferCentre):
-		print('AddTransferCentre init')
-		self.transferCentre = transferCentre
+	def __init__(self, transferWindow):
+		print('AddTransferWindow init')
+		self.transferWindow = transferWindow
 
 	def execute(self):
-		print('AddTransferCentre execute')
-		self.data.addTransferCentre(self.transferCentre)
+		print('AddTransferWindow execute')
+		self.data.addTransferWindow(self.transferWindow)
 
 	def undo(self):
-		print('AddTransferCentre undo')
+		print('AddTransferWindow undo')

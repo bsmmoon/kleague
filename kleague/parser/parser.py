@@ -1,6 +1,6 @@
-from command import Command
-from command import AddTransferCentre
-from ..data.transfercentre import TransferCentre
+from kleague.command.command import Command
+from kleague.command.command import AddTransferWindow
+from kleague.data.transferwindow import TransferWindow
 
 class Parser():
 
@@ -11,4 +11,6 @@ class Parser():
 	def parse(self, inputString):
 		print('command object')
 
-		return AddTransferCentre(TransferCentre())
+		
+		
+		return AddTransferWindow(TransferWindow())
