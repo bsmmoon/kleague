@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, 'kleague')
+sys.path.append('kleague')
 from kleague.cli import CLI
 
 def main(args=None):

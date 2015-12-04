@@ -1,5 +1,5 @@
 import sys
-from data import Data
+from kleague.data import Data
 
 class Storage():
 
