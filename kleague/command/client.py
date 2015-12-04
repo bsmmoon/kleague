@@ -8,6 +8,6 @@ class Client():
 		print('client init')
 
 	def insert(self, command):
-		print('client insert')
+		print('client insert ({})'.format(command))
 		invoker = Invoker(command)
 		invoker.execute()

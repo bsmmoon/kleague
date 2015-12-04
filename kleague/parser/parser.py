@@ -7,5 +7,5 @@ class Parser():
 		print('parser init')
 
 	def parse(self, inputString):
-		print('parser parse')
+		print('command object')
 		return 'parsed command'
