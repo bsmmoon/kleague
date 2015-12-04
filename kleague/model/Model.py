@@ -26,16 +26,24 @@ class Model:
     def pull(self):
         output = []
 
-        contracts = self.data.getContracts()
-        entry = ''
-        for contract in contracts:
-            entry += '{' + str(contract) + '}'
-        output.append(entry)
+        # contracts = self.data.getContracts()
+        # entry = ''
+        # for contract in contracts:
+        #     entry += '{' + str(contract) + '}'
+        # output.append(entry)
 
-        people = self.data.getPeople()
-        entry = ''
-        for person in people:
-            entry += '{' + str(person) + '}'
-        output.append(entry)
+        # people = self.data.getPeople()
+        # entry = ''
+        # for person in people:
+        #     entry += '{' + str(person) + '}'
+        # output.append(entry)
+
+        models = [self.data.getContracts(), self.data.getPeople(), self.data.getTeams()]
+
+        for model in models:
+            string = ''
+            for entry in model:
+                string += '{' + str(entry) + '}'
+            output.append(string)
 
         return output

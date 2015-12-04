@@ -5,25 +5,25 @@ class Person():
 
 	def __init__(self):
 		self._personID = None
-		self._name = None
+		self._personName = None
 		self._role = None
 
 	def __str__(self):
 		output = ''
 		output += (
 			str(self._personID)
-			+ ';' + str(self._name)
+			+ ';' + str(self._personName)
 			+ ';' + str(self._role)
 		)
 		return output
 
 	@property
-	def name(self):
-		return self._name
+	def personName(self):
+		return self._personName
 
-	@name.setter
-	def name(self, name):
-		self._name = name
+	@personName.setter
+	def personName(self, personName):
+		self._personName = personName
 
 	@property
 	def personID(self):
