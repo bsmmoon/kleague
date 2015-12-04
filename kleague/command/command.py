@@ -5,7 +5,6 @@ class Command():
 
 	def __init__(self):
 		print('command init')
-		self.data = data
 
 	def insertData(self, data):
 		print('command insert data')
