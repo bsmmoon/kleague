@@ -1,4 +1,4 @@
-
+from kleague.parser.token import Token
 
 class Tokenizer():
 
@@ -9,4 +9,10 @@ class Tokenizer():
 	def tokenize(self, inputString):
 		stringlist = inputString.split(' ')
 
-		return stringlist
+		tokenlist = []
+		for string in stringlist:
+			token = Token()
+			token.setValue(string)
+			tokenlist.append(token)
+
+		return tokenlist
