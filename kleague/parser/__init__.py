@@ -1,3 +1,3 @@
 from .parser import Parser
-
-print('oh yeah')
+from ..command.command import Command
+from ..command.command import AddTransferCentre
