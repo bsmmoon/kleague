@@ -5,18 +5,30 @@ class Command():
 
 
 	def __init__(self):
-		self.data = None
+		self._data = None
 
 	def insertData(self, data):
-		self.data = data
+		self._data = data
 
 
 class AddContract(Command):
 
 
 	def __init__(self, contract):
-		self.contract = contract
+		self._data = None
+		self._contract = contract
 
 	def execute(self):
-		self.data.addContract(self.contract)
+		self._data.addContract(self._contract)
+
+
+class AddPerson(Command):
+
+
+	def __init__(self, person):
+		self._data = None
+		self._person = person
+
+	def execute(self):
+		self._data.addPerson(self._person)
 
