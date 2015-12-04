@@ -1,7 +1,5 @@
 from kleague.command.command import Command
-from kleague.command.command import AddTransferWindow
 from kleague.command.command import AddContract
-from kleague.data.transferwindow import TransferWindow
 from kleague.data.contract import Contract
 from kleague.parser.tokenizer import Tokenizer
 from kleague.parser.token import Token

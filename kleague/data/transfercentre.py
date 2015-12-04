@@ -1,4 +1,4 @@
-from kleague.data.transferwindow import TransferWindow
+
 
 class TransferCentre():
 
