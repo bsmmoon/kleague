@@ -1,4 +1,6 @@
-
+from command import Command
+from command import AddTransferCentre
+from ..data.transfercentre import TransferCentre
 
 class Parser():
 
@@ -8,4 +10,5 @@ class Parser():
 
 	def parse(self, inputString):
 		print('command object')
-		return 'parsed command'
+
+		return AddTransferCentre(TransferCentre())

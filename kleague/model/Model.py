@@ -21,6 +21,7 @@ class Model:
     def insert(self, inputString):
         print('model insert ({})'.format(inputString))
         command = self.parser.parse(inputString)
+        command.insertData(self.data)
         self.client.insert(command)
         self.storage.save()
 

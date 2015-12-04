@@ -9,3 +9,4 @@ class Invoker():
 
 	def execute(self):
 		print('invoker execute ({})'.format(self.command))
+		self.command.execute()

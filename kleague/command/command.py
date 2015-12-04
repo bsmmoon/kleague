@@ -3,8 +3,12 @@
 class Command():
 
 
-	def __init__(self, data):
+	def __init__(self):
 		print('command init')
+		self.data = data
+
+	def insertData(self, data):
+		print('command insert data')
 		self.data = data
 
 	def execute(self):
@@ -17,13 +21,13 @@ class Command():
 class AddTransferCentre(Command):
 
 
-	def __init__(self, data, transferCentre):
-		print('addTransferCentre init')
-		self.data = data
+	def __init__(self, transferCentre):
+		print('AddTransferCentre init')
+		self.transferCentre = transferCentre
 
 	def execute(self):
-		print('addTransferCentre execute')
+		print('AddTransferCentre execute')
 		self.data.addTransferCentre(self.transferCentre)
 
 	def undo(self):
-		print('addTransferCentre undo')
+		print('AddTransferCentre undo')
