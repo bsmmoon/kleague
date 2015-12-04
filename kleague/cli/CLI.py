@@ -13,6 +13,9 @@ class CLI:
 	def run(self):
 		print('cli run')
 		while True:
-			inputString = input('Command? ')
-			self.model.insert(inputString)
-			self.view.update()
+			try:
+				inputString = input('Your command? ')
+				self.model.insert(inputString)
+				self.view.update()
+			except KeyError as detail:
+				print(detail)

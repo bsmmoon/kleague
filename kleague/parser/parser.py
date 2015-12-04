@@ -4,7 +4,8 @@ from kleague.data.transferwindow import TransferWindow
 from kleague.parser.tokenizer import Tokenizer
 from kleague.parser.token import Token
 
-ADD_TRANSFER_WINDOW_COMMAND = 'AddTransferWindow'
+EXIT = '0'
+ADD_TRANSFER_WINDOW_COMMAND = '1'
 
 class Parser():
 
@@ -18,7 +19,12 @@ class Parser():
 		tokens = self.tokenizer.tokenize(inputString)
 		
 		command = Command()
-		if tokens[0] is ADD_TRANSFER_WINDOW_COMMAND:
+		if tokens[0].getValue() == EXIT:
+			print('bye~')
+			exit()
+		elif tokens[0].getValue() == ADD_TRANSFER_WINDOW_COMMAND:
 			command = AddTransferWindow(TransferWindow())
+		else:
+			raise KeyError('unknown command')
 		
 		return command
