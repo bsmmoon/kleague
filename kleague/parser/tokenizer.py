@@ -12,7 +12,7 @@ class Tokenizer():
 		tokenlist = []
 		for string in stringlist:
 			token = Token()
-			token.setValue(string)
+			token.value = string
 			tokenlist.append(token)
 
 		return tokenlist

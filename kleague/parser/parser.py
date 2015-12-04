@@ -14,20 +14,17 @@ class Parser():
 
 
 	def __init__(self):
-		print('parser init')
 		self.tokenizer = Tokenizer()
 
 	def parse(self, inputString):
-		print('command object')
 		tokens = self.tokenizer.tokenize(inputString)
 		
 		command = Command()
-		if tokens[0].getValue() == EXIT:
-			print('bye~')
+		if tokens[0].value == EXIT:
 			exit()
-		elif tokens[0].getValue() == ADD_TRANSFER_WINDOW_COMMAND:
+		elif tokens[0].value == ADD_TRANSFER_WINDOW_COMMAND:
 			command = AddTransferWindow(TransferWindow())
-		elif tokens[0].getValue() == ADD_PENDING_CONTRACT:
+		elif tokens[0].value == ADD_PENDING_CONTRACT:
 			contract = self.parseContract(tokens)
 			command = AddContract(contract)
 		else:
@@ -37,6 +34,7 @@ class Parser():
 
 	def parseContract(self, tokens):
 		contract = Contract()
-		contract.type = tokens[1]
+		contract.contractType = tokens[1]
 		contract.person = tokens[2]
 		contract.team = tokens[3]
+		return contract

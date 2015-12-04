@@ -4,18 +4,28 @@ class TransferCentre():
 
 
 	def __init__(self):
-		print('transfer centre init')
-		self.windowList = []
+		self._windowList = []
+		self._contracts = []
 
 
 	def addTransferWindow(self, transferWindow):
-		print('transfer centre addTransferWindow')
-		transferWindow.windowID = len(self.windowList)
-		self.windowList.append(transferWindow)
+		transferWindow.windowID = len(self._windowList)
+		self._windowList.append(transferWindow)
 
 	def getTransferWindow(self):
-		print('transfer centre getTransferWindow')
-		print('size: ' + str(len(self.windowList)))
-		for window in self.windowList:
+		for window in self._windowList:
 			print(window)
+
+	@property
+	def contracts(self):
+		return self._contracts
+
+	def addContract(self, contract):
+		contract.contractID = len(self._contracts)
+		self._contracts.append(contract)
+		self.printContracts()
+
+	def printContracts(self):
+		for contract in self._contracts:
+			print(contract)
 

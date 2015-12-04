@@ -4,24 +4,22 @@ class Data():
 
 
 	def __init__(self):
-		print('data init')
-		self.transferCentre = TransferCentre()
-
-	def getData(self):
-		print('data getData')
+		self._transferCentre = TransferCentre()
 
 	def setData(self):
-		print('data setData')
+		1+1
+
+	def getData(self):
+		1+1
 
 	def addTransferWindow(self, transferWindow):
-		print('data addTransferWindow')
-		self.transferCentre.addTransferWindow(transferWindow)
+		self._transferCentre.addTransferWindow(transferWindow)
 
 	def getTransferWindow(self):
-		print('data getTransferWindow')
-		self.transferCentre.getTransferWindow()
+		self._transferCentre.getTransferWindow()
 
 	def addContract(self, contract):
-		print('data addContract')
+		self._transferCentre.addContract(contract)
 
-
+	def getContracts(self):
+		self._transferCentre.contracts
