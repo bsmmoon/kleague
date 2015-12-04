@@ -1,14 +1,6 @@
-
-
-class Role():
-
-
+class Player():
 	def __init__(self):
-		1+1
-
-
-
-class Player(Role):
+		self._team = None
 
 	def __str__(self):
 		output = ''
@@ -26,7 +18,9 @@ class Player(Role):
 		self._team = team
 
 
-class Staff(Role):
+class Staff():
+	def __init__(self):
+		self._team = None
 
 	def __str__(self):
 		output = ''
