@@ -1,32 +1,22 @@
+from kleague.data import Contract
 
 
 class Command():
 
 
 	def __init__(self):
-		print('command init')
+		self.data = None
 
 	def insertData(self, data):
-		print('command insert data')
 		self.data = data
 
-	def execute(self):
-		print('command execute')
 
-	def undo(self):
-		print('command undo')
+class AddContract(Command):
 
 
-class AddTransferWindow(Command):
-
-
-	def __init__(self, transferWindow):
-		print('AddTransferWindow init')
-		self.transferWindow = transferWindow
+	def __init__(self, contract):
+		self.contract = contract
 
 	def execute(self):
-		print('AddTransferWindow execute')
-		self.data.addTransferWindow(self.transferWindow)
+		self.data.addContract(self.contract)
 
-	def undo(self):
-		print('AddTransferWindow undo')

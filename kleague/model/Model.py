@@ -9,7 +9,6 @@ class Model:
 
 
     def __init__(self):
-        print('model init')
         self.data = Data()
         self.storage = Storage(self.data)
         self.parser = Parser()
@@ -19,12 +18,10 @@ class Model:
         self.storage.load()
 
     def insert(self, inputString):
-        print('model insert ({})'.format(inputString))
         command = self.parser.parse(inputString)
         command.insertData(self.data)
         self.client.insert(command)
         self.storage.save()
 
-    def update(self):
-        print('model update')
-        return self.data.getTransferWindow()
+    def pull(self):
+        return self.data.getContracts()

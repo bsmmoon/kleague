@@ -8,5 +8,8 @@ class View:
 		self.model = model
 
 	def update(self):
-		self.model.update()
+		data = self.model.pull()
+
+		for entry in data:
+			print(entry)
 		
