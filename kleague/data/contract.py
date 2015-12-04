@@ -9,6 +9,14 @@ class Contract():
 		self._person = None
 		self._team = None
 
+	def __str__(self):
+		output = ''
+		output += (str(self._contractID)
+		+ ';' + str(self.contractType)
+		+ ';' + str(self.person)
+		+ ';' + str(self.team))
+		return output
+
 	@property
 	def contractID(self):
 		return self._contractID
@@ -40,11 +48,3 @@ class Contract():
 	@team.setter
 	def team(self, team):
 		self._team = team
-
-	def __str__(self):
-		output = ''
-		output += (str(self._contractID)
-		+ ';' + str(self.contractType)
-		+ ';' + str(self.person)
-		+ ';' + str(self.team))
-		return output

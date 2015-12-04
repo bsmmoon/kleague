@@ -22,4 +22,4 @@ class Data():
 		self._transferCentre.addContract(contract)
 
 	def getContracts(self):
-		self._transferCentre.contracts
+		return self._transferCentre.contracts

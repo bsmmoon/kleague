@@ -23,7 +23,6 @@ class TransferCentre():
 	def addContract(self, contract):
 		contract.contractID = len(self._contracts)
 		self._contracts.append(contract)
-		self.printContracts()
 
 	def printContracts(self):
 		for contract in self._contracts:

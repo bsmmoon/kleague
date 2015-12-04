@@ -23,5 +23,5 @@ class Model:
         self.client.insert(command)
         self.storage.save()
 
-    def update(self):
+    def pull(self):
         return self.data.getContracts()
