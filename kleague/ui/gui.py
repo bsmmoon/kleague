@@ -68,7 +68,7 @@ class FrameTemplate():
             rowspan = self.rowspan, columnspan = self.columnspan,
             sticky = W+E+N+S)
         for r in range(self.rowspan):
-            self._frame.columnconfigure(r, weight=1)
+            self._frame.rowconfigure(r, weight=1)
         for c in range(self.columnspan):
             self._frame.columnconfigure(c, weight=1)
 
