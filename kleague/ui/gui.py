@@ -122,15 +122,35 @@ class MainFrame(FrameTemplate):
         self.reset()
         self.gui.iteration()
 
-        self.gui.labelFrame(self._frame, self.rowspan, self.columnspan)
+        # self.gui.labelFrame(self._frame, self.rowspan, self.columnspan)
 
         Label(self._frame, text='Player').grid(row=0, column=0, columnspan=3)
         search_player = Entry(self._frame)
         search_player.grid(row=1, column=0, columnspan=3)
 
+        Label(self._frame, text='Search Result').grid(row=2, column=0, columnspan=3)
+        results = ['wow', 'much', 'result']
+        row = 2
+        for result in results:
+            row += 1
+            searchTeamResult = Label(self._frame, text=result)
+            searchTeamResult.grid(row=row, column=0, columnspan=3)
+            searchTeamResult.bind('<Button-1>',
+                lambda: self.testPrint())
+
         Label(self._frame, text='Team').grid(row=0, column=3, columnspan=3)
         search_team = Entry(self._frame)
         search_team.grid(row=1, column=3, columnspan=3)
+
+        Label(self._frame, text='Search Result').grid(row=2, column=3, columnspan=3)
+        results = ['wower', 'mucher', 'resulter']
+        row = 2
+        for result in results:
+            row += 1
+            searchTeamResult = Label(self._frame, text=result)
+            searchTeamResult.grid(row=row, column=3, columnspan=3)
+            searchTeamResult.bind('<Button-1>',
+                lambda: self.testPrint())
         
         self.gui.root.after(2000, lambda: self.repeatTest(search_player, search_team))
 
@@ -145,3 +165,6 @@ class MainFrame(FrameTemplate):
             return
         print(search_player.get() + ' to ' + search_team.get())
         self.gui.root.after(2000, lambda: self.repeatTest(search_player, search_team))
+
+    def testPrint(self):
+        print('yay~')
