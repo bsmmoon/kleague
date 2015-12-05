@@ -128,30 +128,20 @@ class MainFrame(FrameTemplate):
         search_player = Entry(self._frame)
         search_player.grid(row=1, column=0, columnspan=3)
 
-        Label(self._frame, text='Search Result').grid(row=2, column=0, columnspan=3)
         results = ['wow', 'much', 'result']
-        row = 2
-        for result in results:
-            row += 1
-            searchTeamResult = Label(self._frame, text=result)
-            searchTeamResult.grid(row=row, column=0, columnspan=3)
-            searchTeamResult.bind('<Button-1>',
-                lambda: self.testPrint())
+        playerSearchResultFrame = SearchResultFrame(self.gui, self._frame, 2, 0, self.rowspan-3, 3)
+        playerSearchResultFrame.labelTable('Search Result:')
+        playerSearchResultFrame.insertTable(results)
 
         Label(self._frame, text='Team').grid(row=0, column=3, columnspan=3)
         search_team = Entry(self._frame)
         search_team.grid(row=1, column=3, columnspan=3)
 
-        Label(self._frame, text='Search Result').grid(row=2, column=3, columnspan=3)
         results = ['wower', 'mucher', 'resulter']
-        row = 2
-        for result in results:
-            row += 1
-            searchTeamResult = Label(self._frame, text=result)
-            searchTeamResult.grid(row=row, column=3, columnspan=3)
-            searchTeamResult.bind('<Button-1>',
-                lambda: self.testPrint())
-        
+        teamSearchResultFrame = SearchResultFrame(self.gui, self._frame, 2, 3, self.rowspan-3, 3)
+        teamSearchResultFrame.labelTable('Search Result:')
+        teamSearchResultFrame.insertTable(results)
+
         self.gui.root.after(2000, lambda: self.repeatTest(search_player, search_team))
 
     def menu3(self):
@@ -168,3 +158,17 @@ class MainFrame(FrameTemplate):
 
     def testPrint(self):
         print('yay~')
+
+class SearchResultFrame(FrameTemplate):
+    def labelTable(self, label):
+        Label(self._frame, text=label).grid(row=0, column=0, columnspan=3)
+
+    def insertTable(self, results):
+        row = 1
+        for result in results:
+            searchTeamResult = Label(self._frame, text=result)
+            searchTeamResult.grid(row=row, column=0, columnspan=self.columnspan)
+            searchTeamResult.bind('<Button-1>', 
+                lambda: self.testPrint())
+            row += 1
+        
