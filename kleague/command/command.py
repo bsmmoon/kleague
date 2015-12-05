@@ -35,3 +35,18 @@ class AddTeam(Command):
 	def execute(self):
 		self._data.addTeam(self._team)
 
+class SearchPerson(Command):
+	def __init__(self, keyword):
+		self._data = None
+		self._keyword = keyword
+
+	def execute(self):
+		self._data.searchPerson(self._keyword)
+
+class SearchTeam(Command):
+	def __init__(self, keyword):
+		self._data = None
+		self._keyword = keyword
+
+	def execute(self):
+		self._data.searchTeam(self._keyword)

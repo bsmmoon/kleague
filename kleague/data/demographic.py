@@ -18,3 +18,10 @@ class Demographic():
 		for person in self._peopleList:
 			print(person)
 
+	def search(self, keyword):
+		output = []
+		for person in self._peopleList:
+			if keyword in person.personName:
+				output.append(person.personName)
+		return output
+

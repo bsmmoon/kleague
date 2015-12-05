@@ -2,6 +2,8 @@ from kleague.command.command import Command
 from kleague.command.command import AddContract
 from kleague.command.command import AddPerson
 from kleague.command.command import AddTeam
+from kleague.command.command import SearchPerson
+from kleague.command.command import SearchTeam
 from kleague.data.contract import Contract
 from kleague.data.person import Person
 from kleague.data.role import Player
@@ -14,6 +16,7 @@ EXIT = '0'
 ADD_PENDING_CONTRACT = '1'
 ADD_PERSON = '2'
 ADD_TEAM = '3'
+SEARCH = '4'
 
 class Parser():
 	def __init__(self):
@@ -34,6 +37,8 @@ class Parser():
 		elif tokens[0].value == ADD_TEAM:
 			parserdObject = self.parseTeam(tokens)
 			command = AddTeam(parserdObject)
+		elif tokens[0].value == SEARCH:
+			command = self.parseSearch(tokens)
 		else:
 			raise KeyError('unknown command')
 		
@@ -64,3 +69,10 @@ class Parser():
 		team.teamName = tokens[1].value
 		return team
 
+	def parseSearch(self, tokens):
+		if tokens[1].value == 'person':
+			return SearchPerson(tokens[2].value)
+		elif tokens[1].value == 'team':
+			return SearchTeam(tokens[2].value)
+		else:
+			raise KeyError('unknown type')

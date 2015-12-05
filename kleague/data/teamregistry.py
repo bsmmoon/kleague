@@ -16,3 +16,9 @@ class TeamRegistry():
 		for team in self._registry:
 			print(team)
 
+	def search(self, keyword):
+		output = []
+		for team in self._registry:
+			if keyword in team.teamName:
+				output.append(team.teamName)
+		return output

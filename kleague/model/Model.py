@@ -9,24 +9,28 @@ class Model:
 
 
     def __init__(self):
-        self.data = Data()
-        self.storage = Storage(self.data)
-        self.parser = Parser()
-        self.client = Client()
-        self.crawler = Crawler()
+        self._data = Data()
+        self._storage = Storage(self._data)
+        self._parser = Parser()
+        self._client = Client()
+        self._crawler = Crawler()
 
-        self.storage.load()
+        self._storage.load()
 
     def insert(self, inputString):
-        command = self.parser.parse(inputString)
-        command.insertData(self.data)
-        self.client.insert(command)
-        self.storage.save()
+        command = self._parser.parse(inputString)
+        command.insertData(self._data)
+        self._client.insert(command)
+        self._storage.save()
 
     def pull(self):
         output = []
 
-        models = [self.data.getContracts(), self.data.getPeople(), self.data.getTeams()]
+        models = [
+            self._data.getContracts(), 
+            self._data.getPeople(), 
+            self._data.getTeams()
+        ]
 
         for model in models:
             string = ''
@@ -35,3 +39,6 @@ class Model:
             output.append(string)
 
         return output
+
+    def getSearchResult(self):
+        return self._data.searchResult

@@ -1,4 +1,5 @@
 from tkinter import *
+from kleague.model import Model
 
 MENU1_ID = '1'
 TRANSFER_CENTRE_ID = '2'
@@ -6,6 +7,8 @@ MENU3_ID = '3'
 
 class GUI(Frame):
     def __init__(self):
+        self._model = Model()
+
         self._root = Tk()
         self._root.resizable(width=False, height=False)
         self._root.geometry('{}x{}'.format(str(480), str(480)))
@@ -32,6 +35,10 @@ class GUI(Frame):
 
         self.header.update()
         self.menu.update(mainFrame)
+
+    @property
+    def model(self):
+        return self._model
 
     @property
     def openedMenu(self):
@@ -61,27 +68,27 @@ class GUI(Frame):
 class FrameTemplate():
     def __init__(self, gui, parent, row, column, rowspan,
         columnspan, rowWeight, colWeight, bg=None):
-        self.gui = gui
-        self.parent = parent
-        self.row = row
-        self.column = column
-        self.rowspan = rowspan
-        self.columnspan = columnspan
-        self.rowWeight = rowWeight
-        self.colWeight = colWeight
-        self.bg = bg
+        self._gui = gui
+        self._parent = parent
+        self._row = row
+        self._column = column
+        self._rowspan = rowspan
+        self._columnspan = columnspan
+        self._rowWeight = rowWeight
+        self._colWeight = colWeight
+        self._bg = bg
 
         self.reset()
 
     def reset(self):
-        self._frame = Frame(self.parent, bg = self.bg)
-        self._frame.grid(row = self.row, column = self.column,
-            rowspan = self.rowspan, columnspan = self.columnspan,
+        self._frame = Frame(self._parent, bg = self._bg)
+        self._frame.grid(row = self._row, column = self._column,
+            rowspan = self._rowspan, columnspan = self._columnspan,
             sticky = W+E+N+S)
-        for r in range(self.rowspan):
-            self._frame.rowconfigure(r, weight=self.rowWeight)
-        for c in range(self.columnspan):
-            self._frame.columnconfigure(c, weight=self.colWeight)
+        for r in range(self._rowspan):
+            self._frame.rowconfigure(r, weight=self._rowWeight)
+        for c in range(self._columnspan):
+            self._frame.columnconfigure(c, weight=self._colWeight)
 
     @property
     def frame(self):
@@ -91,14 +98,14 @@ class FrameTemplate():
 class HeaderFrame(FrameTemplate):
     def update(self):
         self.reset()
-        print(self.gui.openedMenu)
-        if self.gui.openedMenu == MENU1_ID:
+        print(self._gui.openedMenu)
+        if self._gui.openedMenu == MENU1_ID:
             Label(self._frame, text='1', borderwidth = 1).grid(
                 row = 0, column = 0, columnspan = 6)
-        elif self.gui.openedMenu == TRANSFER_CENTRE_ID:
+        elif self._gui.openedMenu == TRANSFER_CENTRE_ID:
             Label(self._frame, text='Transfer Centre', 
                 borderwidth = 1).grid(row = 0, column = 0, columnspan = 6)
-        elif self.gui.openedMenu == MENU3_ID:
+        elif self._gui.openedMenu == MENU3_ID:
             Label(self._frame, text='3', borderwidth = 1).grid(
                 row = 0, column = 0, columnspan = 6)
 
@@ -120,53 +127,56 @@ class MenuFrame(FrameTemplate):
 class MainFrame(FrameTemplate):
     def menu1(self):
         print("hi there, everyone!")
-        self.gui.openedMenu = MENU1_ID
+        self._gui.openedMenu = MENU1_ID
         self.reset()
-        self.gui.iteration()
+        self._gui.iteration()
 
     def transfercentre(self):
-        if self.gui.openedMenu == TRANSFER_CENTRE_ID:
+        if self._gui.openedMenu == TRANSFER_CENTRE_ID:
             return
-        self.gui.openedMenu = TRANSFER_CENTRE_ID
+        self._gui.openedMenu = TRANSFER_CENTRE_ID
         self.reset()
-        self.gui.iteration()
+        self._gui.iteration()
 
         Label(self._frame, text='Player').grid(
             row=0, column=0, columnspan=3)
         search_player = Entry(self._frame)
         search_player.grid(row=1, column=0, columnspan=3)
 
-        results = ['wow', 'much', 'result']
-        playerSearchResultFrame = SearchResultFrame(
-            self.gui, self._frame, 2, 0, self.rowspan-3, 3, 0, 1)
-        playerSearchResultFrame.labelFrame('Search Result:')
-        playerSearchResultFrame.insertTable(results)
-
         Label(self._frame, text='Team').grid(
             row=0, column=3, columnspan=3)
         search_team = Entry(self._frame)
         search_team.grid(row=1, column=3, columnspan=3)
 
-        results = ['wower', 'mucher', 'resulter']
-        teamSearchResultFrame = SearchResultFrame(
-            self.gui, self._frame, 2, 3, self.rowspan-3, 3, 0, 1)
-        teamSearchResultFrame.labelFrame('Search Result:')
-        teamSearchResultFrame.insertTable(results)
-
-        self.gui.root.after(2000, 
+        self._gui.root.after(2000, 
             lambda: self.repeatTest(search_player, search_team))
 
     def menu3(self):
         print("hi there, everyone!")
-        self.gui.openedMenu = MENU3_ID
+        self._gui.openedMenu = MENU3_ID
         self.reset()
-        self.gui.iteration()
+        self._gui.iteration()
 
     def repeatTest(self, search_player, search_team):
-        if self.gui.openedMenu != TRANSFER_CENTRE_ID:
+        if self._gui.openedMenu != TRANSFER_CENTRE_ID:
             return
         print(search_player.get() + ' to ' + search_team.get())
-        self.gui.root.after(2000, 
+
+        self._gui.model.insert('4;person;'+str(search_player.get()))
+        results = self._gui.model.getSearchResult()
+        playerSearchResultFrame = SearchResultFrame(
+            self._gui, self._frame, 2, 0, self._rowspan-3, 3, 0, 1)
+        playerSearchResultFrame.labelFrame('Search Result:')
+        playerSearchResultFrame.insertTable(results)
+
+        self._gui.model.insert('4;team;'+str(search_team.get()))
+        results = self._gui.model.getSearchResult()
+        teamSearchResultFrame = SearchResultFrame(
+            self._gui, self._frame, 2, 3, self._rowspan-3, 3, 0, 1)
+        teamSearchResultFrame.labelFrame('Search Result:')
+        teamSearchResultFrame.insertTable(results)
+
+        self._gui.root.after(2000, 
             lambda: self.repeatTest(search_player, search_team))
 
     def testPrint(self):
@@ -181,7 +191,7 @@ class SearchResultFrame(FrameTemplate):
         for result in results:
             searchTeamResult = Label(self._frame, text=result)
             searchTeamResult.grid(
-                row=row, column=0, columnspan=self.columnspan)
+                row=row, column=0, columnspan=self._columnspan)
             searchTeamResult.bind('<Button-1>', 
                 lambda: self.testPrint())
             row += 1
