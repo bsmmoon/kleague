@@ -16,21 +16,15 @@ class GUI(Frame):
             self._root.rowconfigure(r, weight=1)    
         for c in range(cols):
             self._root.columnconfigure(c, weight=1)
+        self.labelFrame(self._root, rows, cols)
+        inputString = input('Your command? ')
 
         self._openedMenu = 0
 
-        self.menu = Menu(self, rows-1, 0, 1, cols)
-        self.header = Header(self, 0, 0, 1, cols)
+        self.menu = Menu(self, self._root, rows-1, 0, 1, cols, 'red')
+        self.header = Header(self, self._root, 0, 0, 1, cols, 'blue')
+        mainFrame = MainFrame(self, self._root, 1, 0, rows-2, cols)
 
-        mainFrame = Frame(self._root)
-        mainFrame.grid(row = 1, column = 0, rowspan = rows - 2, columnspan = cols, sticky = W+E+N+S)
-        for r in range(rows - 2):
-            mainFrame.rowconfigure(r, weight=1)
-        for c in range(cols):
-            mainFrame.columnconfigure(c, weight=1)
-        mainFrame.rowconfigure(0, weight=1)
-
-        self.menu1(mainFrame)
         self.header.update()
         self.menu.update(mainFrame)
 
@@ -38,44 +32,13 @@ class GUI(Frame):
     def openedMenu(self):
         return self._openedMenu
 
+    @openedMenu.setter
+    def openedMenu(self, openedMenu):
+        self._openedMenu = openedMenu
+
     @property
     def root(self):
         return self._root
-
-    def transfercentre(self, mainFrame):
-        if self._openedMenu == 1:
-            return
-        self._openedMenu = 1
-        self.header.update()
-
-        self.labelFrame(mainFrame, 8, 6)
-
-        Label(mainFrame, text='Player').grid(row=0, column=0, columnspan=3)
-        search_player = Entry(mainFrame)
-        search_player.grid(row=1, column=0, columnspan=3)
-
-        Label(mainFrame, text='Team').grid(row=0, column=3, columnspan=3)
-        search_team = Entry(mainFrame)
-        search_team.grid(row=1, column=3, columnspan=3)
-        
-        self._root.after(2000, lambda: self.repeatTest(search_player, search_team))
-
-
-    def menu1(self, mainFrame):
-        print("hi there, everyone!")
-        self._openedMenu = 0
-        self.header.update()
-
-    def menu3(self, mainFrame):
-        print("hi there, everyone!")
-        self._openedMenu = 2
-        self.header.update()
-
-    def repeatTest(self, search_player, search_team):
-        if self._openedMenu != 1:
-            return
-        print(search_player.get() + ' to ' + search_team.get())
-        self._root.after(2000, lambda: self.repeatTest(search_player, search_team))
 
     def run(self):
         self.mainloop()
@@ -86,32 +49,37 @@ class GUI(Frame):
                 Label(frame, text='(' + str(r) + ',' + str(c) +')',
                     borderwidth = 1).grid(row = r, column = c)
 
+
 class FrameTemplate():
-    def __init__(self, gui, row, column, rowspan, columnspan):
+    def __init__(self, gui, parent, row, column, rowspan, columnspan, bg=None):
         self.gui = gui
+        self.parent = parent
         self.row = row
         self.column = column
         self.rowspan = rowspan
         self.columnspan = columnspan
+        self.bg = bg
 
-        self.clear()
+        self.reset()
 
-    def clear(self):
-        self._frame = Frame(self.gui.root, bg="blue")
-        self._frame.grid(row = self.row, column = self.column, rowspan = self.rowspan, columnspan = self.columnspan, sticky = W+E+N+S)
+    def reset(self):
+        self._frame = Frame(self.parent, bg = self.bg)
+        self._frame.grid(row = self.row, column = self.column,
+            rowspan = self.rowspan, columnspan = self.columnspan,
+            sticky = W+E+N+S)
         for r in range(self.rowspan):
             self._frame.columnconfigure(r, weight=1)
         for c in range(self.columnspan):
             self._frame.columnconfigure(c, weight=1)
-        self._frame.rowconfigure(0, weight=1)
 
     @property
     def frame(self):
         return self._frame
 
+
 class Header(FrameTemplate):
     def update(self):
-        self.clear()
+        self.reset()
         print(self.gui.openedMenu)
         if self.gui.openedMenu == 0:
             Label(self._frame, text='0', borderwidth = 1).grid(row = 0, column = 0, columnspan = 6)
@@ -120,9 +88,55 @@ class Header(FrameTemplate):
         elif self.gui.openedMenu == 2:
             Label(self._frame, text='2', borderwidth = 1).grid(row = 0, column = 0, columnspan = 6)
 
+
 class Menu(FrameTemplate):
     def update(self, mainFrame):
-        self.clear()
-        Button(self._frame, text="Menu1", command=lambda: self.gui.menu1(mainFrame)).grid(row=0,column=0,columnspan=2,sticky=E+W)
-        Button(self._frame, text="Transfer Centre", command=lambda: self.gui.transfercentre(mainFrame)).grid(row=0,column=2,columnspan=2,sticky=E+W)
-        Button(self._frame, text="Menu3", command=lambda: self.gui.menu3(mainFrame)).grid(row=0,column=4,columnspan=2,sticky=E+W)
+        self.reset()
+        Button(self._frame, text="Menu1", command=
+            lambda: mainFrame.menu1()).grid(
+            row=0,column=0,columnspan=2,sticky=E+W)
+        Button(self._frame, text="Transfer Centre", command=
+            lambda: mainFrame.transfercentre()).grid(
+            row=0,column=2,columnspan=2,sticky=E+W)
+        Button(self._frame, text="Menu3", command=
+            lambda: mainFrame.menu3()).grid(
+            row=0,column=4,columnspan=2,sticky=E+W)
+
+
+class MainFrame(FrameTemplate):
+    def menu1(self):
+        print("hi there, everyone!")
+        self.gui.openedMenu = 0
+        self.reset()
+        # self.header.update()
+
+    def transfercentre(self):
+        if self.gui.openedMenu == 1:
+            return
+        self.gui.openedMenu = 1
+        self.reset()
+        # self.header.update()
+
+        self.gui.labelFrame(self._frame, self.rowspan, self.columnspan)
+
+        # Label(self._frame, text='Player').grid(row=0, column=0, columnspan=3)
+        # search_player = Entry(self._frame)
+        # search_player.grid(row=1, column=0, columnspan=3)
+
+        # Label(self._frame, text='Team').grid(row=0, column=3, columnspan=3)
+        # search_team = Entry(self._frame)
+        # search_team.grid(row=1, column=3, columnspan=3)
+        
+        # self.gui.root.after(2000, lambda: self.repeatTest(search_player, search_team))
+
+    def menu3(self):
+        print("hi there, everyone!")
+        self.gui.openedMenu = 2
+        self.reset()
+        # self.header.update()
+
+    def repeatTest(self, search_player, search_team):
+        if self.gui.openedMenu != 1:
+            return
+        print(search_player.get() + ' to ' + search_team.get())
+        self.gui.root.after(2000, lambda: self.repeatTest(search_player, search_team))
