@@ -23,9 +23,12 @@ class GUI(Frame):
 
         self._openedMenu = MENU1_ID
 
-        self.menu = MenuFrame(self, self._root, rows-1, 0, 1, cols, 'red')
-        self.header = HeaderFrame(self, self._root, 0, 0, 1, cols, 'blue')
-        mainFrame = MainFrame(self, self._root, 1, 0, rows-2, cols)
+        self.menu = MenuFrame(self, self._root, rows-1, 0, 
+            1, cols, 1, 1, 'red')
+        self.header = HeaderFrame(self, self._root, 0, 0, 
+            1, cols, 1, 1, 'blue')
+        mainFrame = MainFrame(self, self._root, 1, 0, 
+            rows-2, cols, 1, 1)
 
         self.header.update()
         self.menu.update(mainFrame)
@@ -56,13 +59,16 @@ class GUI(Frame):
 
 
 class FrameTemplate():
-    def __init__(self, gui, parent, row, column, rowspan, columnspan, bg=None):
+    def __init__(self, gui, parent, row, column, rowspan,
+        columnspan, rowWeight, colWeight, bg=None):
         self.gui = gui
         self.parent = parent
         self.row = row
         self.column = column
         self.rowspan = rowspan
         self.columnspan = columnspan
+        self.rowWeight = rowWeight
+        self.colWeight = colWeight
         self.bg = bg
 
         self.reset()
@@ -73,9 +79,9 @@ class FrameTemplate():
             rowspan = self.rowspan, columnspan = self.columnspan,
             sticky = W+E+N+S)
         for r in range(self.rowspan):
-            self._frame.rowconfigure(r, weight=1)
+            self._frame.rowconfigure(r, weight=self.rowWeight)
         for c in range(self.columnspan):
-            self._frame.columnconfigure(c, weight=1)
+            self._frame.columnconfigure(c, weight=self.colWeight)
 
     @property
     def frame(self):
@@ -87,11 +93,14 @@ class HeaderFrame(FrameTemplate):
         self.reset()
         print(self.gui.openedMenu)
         if self.gui.openedMenu == MENU1_ID:
-            Label(self._frame, text='1', borderwidth = 1).grid(row = 0, column = 0, columnspan = 6)
+            Label(self._frame, text='1', borderwidth = 1).grid(
+                row = 0, column = 0, columnspan = 6)
         elif self.gui.openedMenu == TRANSFER_CENTRE_ID:
-            Label(self._frame, text='Transfer Centre', borderwidth = 1).grid(row = 0, column = 0, columnspan = 6)
+            Label(self._frame, text='Transfer Centre', 
+                borderwidth = 1).grid(row = 0, column = 0, columnspan = 6)
         elif self.gui.openedMenu == MENU3_ID:
-            Label(self._frame, text='3', borderwidth = 1).grid(row = 0, column = 0, columnspan = 6)
+            Label(self._frame, text='3', borderwidth = 1).grid(
+                row = 0, column = 0, columnspan = 6)
 
 
 class MenuFrame(FrameTemplate):
@@ -122,27 +131,30 @@ class MainFrame(FrameTemplate):
         self.reset()
         self.gui.iteration()
 
-        # self.gui.labelFrame(self._frame, self.rowspan, self.columnspan)
-
-        Label(self._frame, text='Player').grid(row=0, column=0, columnspan=3)
+        Label(self._frame, text='Player').grid(
+            row=0, column=0, columnspan=3)
         search_player = Entry(self._frame)
         search_player.grid(row=1, column=0, columnspan=3)
 
         results = ['wow', 'much', 'result']
-        playerSearchResultFrame = SearchResultFrame(self.gui, self._frame, 2, 0, self.rowspan-3, 3)
-        playerSearchResultFrame.labelTable('Search Result:')
+        playerSearchResultFrame = SearchResultFrame(
+            self.gui, self._frame, 2, 0, self.rowspan-3, 3, 0, 1)
+        playerSearchResultFrame.labelFrame('Search Result:')
         playerSearchResultFrame.insertTable(results)
 
-        Label(self._frame, text='Team').grid(row=0, column=3, columnspan=3)
+        Label(self._frame, text='Team').grid(
+            row=0, column=3, columnspan=3)
         search_team = Entry(self._frame)
         search_team.grid(row=1, column=3, columnspan=3)
 
         results = ['wower', 'mucher', 'resulter']
-        teamSearchResultFrame = SearchResultFrame(self.gui, self._frame, 2, 3, self.rowspan-3, 3)
-        teamSearchResultFrame.labelTable('Search Result:')
+        teamSearchResultFrame = SearchResultFrame(
+            self.gui, self._frame, 2, 3, self.rowspan-3, 3, 0, 1)
+        teamSearchResultFrame.labelFrame('Search Result:')
         teamSearchResultFrame.insertTable(results)
 
-        self.gui.root.after(2000, lambda: self.repeatTest(search_player, search_team))
+        self.gui.root.after(2000, 
+            lambda: self.repeatTest(search_player, search_team))
 
     def menu3(self):
         print("hi there, everyone!")
@@ -154,20 +166,22 @@ class MainFrame(FrameTemplate):
         if self.gui.openedMenu != TRANSFER_CENTRE_ID:
             return
         print(search_player.get() + ' to ' + search_team.get())
-        self.gui.root.after(2000, lambda: self.repeatTest(search_player, search_team))
+        self.gui.root.after(2000, 
+            lambda: self.repeatTest(search_player, search_team))
 
     def testPrint(self):
         print('yay~')
 
 class SearchResultFrame(FrameTemplate):
-    def labelTable(self, label):
+    def labelFrame(self, label):
         Label(self._frame, text=label).grid(row=0, column=0, columnspan=3)
 
     def insertTable(self, results):
         row = 1
         for result in results:
             searchTeamResult = Label(self._frame, text=result)
-            searchTeamResult.grid(row=row, column=0, columnspan=self.columnspan)
+            searchTeamResult.grid(
+                row=row, column=0, columnspan=self.columnspan)
             searchTeamResult.bind('<Button-1>', 
                 lambda: self.testPrint())
             row += 1
